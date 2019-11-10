@@ -1507,23 +1507,20 @@ div.tocify {
 </div>
 
 
-<p>[TEXT IN SQUARE BRACKETS IS HERE FOR GUIDANCE. PLEASE DELETE TEXT IN SQUARE BRACKETS BEFORE KNITTING THE FINAL REPORT]</p>
 <div id="report-details" class="section level1">
 <h1>Report Details</h1>
-<p>[PILOT/COPILOT ENTER RELEVANT REPORT DETAILS HERE]</p>
 <pre class="r"><code>articleID &lt;- &quot;2-10-2014&quot; # insert the article ID code here e.g., &quot;10-3-2015&quot;
 reportType &lt;- &quot;pilot&quot; # specify whether this is the 'pilot' report or 'copilot' report
 pilotNames &lt;- &quot;Ethan Roy&quot; # insert the pilot's name here e.g., &quot;Tom Hardwicke&quot;.
 copilotNames &lt;- NA # # insert the co-pilot's name here e.g., &quot;Michael Frank&quot;.
-pilotTTC &lt;- NA # insert the pilot's estimated time to complete (in minutes, it is fine to approximate) e.g., 120
+pilotTTC &lt;- 300 # insert the pilot's estimated time to complete (in minutes, it is fine to approximate) e.g., 120
 copilotTTC &lt;- NA # insert the co-pilot's estimated time to complete (in minutes, it is fine to approximate) e.g., 120
-pilotStartDate &lt;- as.Date(&quot;10/30/18&quot;, format=&quot;%m/%d/%y&quot;) # insert the piloting start date in US format e.g., as.Date(&quot;01/25/18&quot;, format = &quot;%m/%d/%y&quot;)
+pilotStartDate &lt;- as.Date(&quot;10/30/19&quot;, format=&quot;%m/%d/%y&quot;) # insert the piloting start date in US format e.g., as.Date(&quot;01/25/18&quot;, format = &quot;%m/%d/%y&quot;)
 copilotStartDate &lt;- NA # insert the co-piloting start date in US format e.g., as.Date(&quot;01/25/18&quot;, format = &quot;%m/%d/%y&quot;)
-completionDate &lt;- NA # insert the date of final report completion in US format e.g., as.Date(&quot;01/25/18&quot;, format = &quot;%m/%d/%y&quot;)</code></pre>
+completionDate &lt;- as.Date(&quot;11/39/19&quot;, format=&quot;%m/%d/%y&quot;) # insert the date of final report completion in US format e.g., as.Date(&quot;01/25/18&quot;, format = &quot;%m/%d/%y&quot;)</code></pre>
 <hr />
 <div id="methods-summary" class="section level4">
 <h4>Methods summary:</h4>
-<p>[PILOT/COPILOT write a brief summary of the methods underlying the target outcomes written in your own words]</p>
 <p>This study recruited 135 undergraduate students to participate in a two part survey. At Time 1 (the beginning of the summer), the participants created “time capsules”, which encompassed a range of current or recent experiences. These experiences included, but was not limited to, things like the last social event they attended, the last three songs they listened to, an inside joke, and a question from a recent final exam. After curating their time capsules, the participants were asked to predict how curious they would be to see what they included, how surprised they would be by each element, and how meaningful and interesting they would find each element in the future. All predictions were made on a scale of 1 (not at all) to 7 (extremely).</p>
 <p>Three months later (Time 2), the participants recieved a follow-up survey that listed the prompts they saw at Time 1. Before seeing their original submissions to the “time capsule”, participants were asked to indicate how curious they were to see their response to each prompt. After viewing their submissions from Time 1, partipants rated how surprised they were and how meaningful and interseting they found each item in their “time capsule”.</p>
 <hr />
@@ -1539,12 +1536,10 @@ completionDate &lt;- NA # insert the date of final report completion in US forma
 <p>Participants’ Time 1 predictions of their curiosity (M = 3.99, SD = 1.32) were lower than their actual curiosity ratings at Time 2, immediately before reading their responses (M = 4.34, SD = 1.25), t(105) = 2.88, p = .005, d = 0.27. Participants also underestimated how interesting they would find their responses. Predictions of interest at Time 1 (M = 3.54, SD = 1.01) were lower than ratings of actual interest experienced at Time 2 (M = 3.82, SD = 0.89), t(105) = 3.10, p = .003, d = 0.29.</p>
 </blockquote>
 <hr />
-<p>[PILOT/COPILOT DO NOT CHANGE THE CODE IN THE CHUNK BELOW]</p>
 </div>
 </div>
 <div id="step-1-load-packages-and-prepare-report-object" class="section level1">
 <h1>Step 1: Load packages and prepare report object</h1>
-<p>[PILOT/COPILOT Some useful packages are being loaded below. You can add any additional ones you might need too.]</p>
 <pre class="r"><code># load packages
 library(tidyverse) # for data munging
 library(knitr) # for kable table formating
@@ -1552,7 +1547,6 @@ library(haven) # import and export 'SPSS', 'Stata' and 'SAS' Files
 library(readxl) # import excel files
 library(ReproReports) # custom reporting functions
 library(effsize) # to calculate effect size</code></pre>
-<p>[PILOT/COPILOT DO NOT MAKE CHANGES TO THE CODE CHUNK BELOW]</p>
 <pre class="r"><code># Prepare report object. This will be updated automatically by the reproCheck function each time values are compared
 reportObject &lt;- data.frame(dummyRow = TRUE, reportedValue = NA, obtainedValue = NA, valueType = NA, percentageError = NA, comparisonOutcome = NA, eyeballCheck = NA)</code></pre>
 </div>
@@ -1865,9 +1859,7 @@ curiousityrawMeanCheck1&lt;- reproCheck(reportedValue = '3.99', obtainedValue = 
 <pre><code>## [1] &quot;MATCH for t. The reported value (2.88) and the obtained value (2.88) differed by 0%. Note that the obtained value was rounded to 2 decimal places to match the reported value.&quot;</code></pre>
 <pre class="r"><code>curiousityrawPCheck &lt;- reproCheck(reportedValue = '.005', obtainedValue = wideRawData$pVals[1], valueType = 'p')</code></pre>
 <pre><code>## [1] &quot;MATCH for p. The reported value (0.005) and the obtained value (0.005) differed by 0%. Note that the obtained value was rounded to 3 decimal places to match the reported value.&quot;</code></pre>
-<pre class="r"><code># stuff=c(mean_T2[1],mean_T1[2])
-
-curiousityRawdDCheck &lt;- reproCheck(reportedValue = '0.27', obtainedValue=cohen.d(statsData$T2_curious,statsData$T1_curious,paired=T,na.rm=T)$estimate,valueType = 'd')</code></pre>
+<pre class="r"><code>curiousityRawdDCheck &lt;- reproCheck(reportedValue = '0.27', obtainedValue=cohen.d(statsData$T2_curious,statsData$T1_curious,paired=T,na.rm=T)$estimate,valueType = 'd')</code></pre>
 <pre><code>## [1] &quot;MATCH for d. The reported value (0.27) and the obtained value (0.27) differed by 0%. Note that the obtained value was rounded to 2 decimal places to match the reported value.&quot;</code></pre>
 <p><strong>Composite Interest Measure:</strong></p>
 <pre class="r"><code>interestrawMeanCheck1&lt;- reproCheck(reportedValue = '3.54', obtainedValue = wideRawData$mean_T1[2], valueType = 'mean')</code></pre>
@@ -1890,7 +1882,6 @@ curiousityRawdDCheck &lt;- reproCheck(reportedValue = '0.27', obtainedValue=cohe
 <div id="step-5-conclusion" class="section level1">
 <h1>Step 5: Conclusion</h1>
 <p>When I used the mean data that was included with the original data set, I was able to reproduce all of the statistics reported in the original study. However, when I used the raw scores from the data set, some of the statistics differed from the orginal study. Though I was able to match the t-score and p-value using the raw scores, the means and standard deviations differed slightly from the values reported by the original authors. Based on the format of the provided dataset, it seems that the original analysis was conducted using SPSS and there may have been some differences in rounding between R and SPSS which led to these observed diferences.</p>
-<p>[PILOT/COPILOT DOD NOT EDIT THE CODE CHUNK BELOW]</p>
 <pre class="r"><code>reportObject &lt;- reportObject %&gt;%
   filter(dummyRow == FALSE) %&gt;% # remove the dummy row
   select(-dummyRow) %&gt;% # remove dummy row designation
@@ -1932,7 +1923,7 @@ if(reportType == &quot;copilot&quot;){
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       America/Los_Angeles         
-##  date     2019-11-05                  
+##  date     2019-11-09                  
 ## 
 ## ─ Packages ──────────────────────────────────────────────────────────────
 ##  package      * version date       lib
